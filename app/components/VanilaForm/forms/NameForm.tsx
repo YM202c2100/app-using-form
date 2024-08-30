@@ -1,21 +1,28 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, RefObject, useState } from "react";
 
-export const NameForm = ()=>{
+export const NameForm:React.FC<{submitRef:RefObject<HTMLButtonElement>}> = ({submitRef})=>{
   const [error, setError] = useState<string>()
 
   function validate(e:ChangeEvent<HTMLInputElement>){
+    if(!submitRef.current) return;
+    const submitButton = submitRef.current
+
     if(e.target.value === ""){
       setError("入力必須の項目です")
+      submitButton.disabled = true
       return;
     }
 
     if(e.target.value.length > 10){
       setError("最大10文字まで入力可能です")
+      submitButton.disabled = true
       return;
     }
 
     if(error !== ""){
       setError("")
+      submitButton.disabled = false
+      return;
     }
   }
 
