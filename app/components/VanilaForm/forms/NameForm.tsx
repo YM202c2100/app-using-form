@@ -1,22 +1,19 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const NameForm = ()=>{
   const [error, setError] = useState<string>()
-  const nameRef = useRef<HTMLInputElement>(null)
 
   function validate(e:ChangeEvent<HTMLInputElement>){
-    if(!nameRef.current) return;
-
-    if(nameRef.current.value === ""){
+    if(e.target.value === ""){
       setError("入力必須の項目です")
       return;
     }
 
-    if(nameRef.current.value.length > 10){
+    if(e.target.value.length > 10){
       setError("最大10文字まで入力可能です")
       return;
-
     }
+
     if(error !== ""){
       setError("")
     }
@@ -27,7 +24,6 @@ export const NameForm = ()=>{
       <p>名前</p>
       <input 
         type="text" name="name" required
-        ref={nameRef}
         onChange={validate}
         className="border border-black" 
       />
