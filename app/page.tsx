@@ -1,4 +1,4 @@
-import VanilaForms from "./components/VanilaForm/page";
+import VanilaForms from "./components/VanilaForm/VanilaForm";
 
 export default function Home() {
   return (
