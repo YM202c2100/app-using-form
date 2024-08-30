@@ -1,31 +1,27 @@
 "use client"
 
-import { ChangeEvent, useState } from "react";
-
-type FormState = {
-  value:string,
-  error?:string
-}
+import { ChangeEvent, useRef, useState } from "react";
 
 export default function VanilaForms(){
-  const [name, setName] = useState<FormState>()
+  const [error, setError] = useState<string>()
+  const nameRef = useRef<HTMLInputElement>(null)
 
-  function chageNameState(e:ChangeEvent<HTMLInputElement>){
-    const newName:FormState = {value: e.target.value}
+  function validate(e:ChangeEvent<HTMLInputElement>){
+    if(!nameRef.current) return;
 
-    if(newName.value.length > 10){
-      newName.error = "最大10文字まで入力可能です"
-      setName(newName)
+    if(nameRef.current.value === ""){
+      setError("入力必須の項目です")
       return;
     }
 
-    if(newName.value === ""){
-      newName.error = "入力必須の項目です"
-      setName(newName)
+    if(nameRef.current.value.length > 10){
+      setError("最大10文字まで入力可能です")
       return;
     }
 
-    setName(newName)
+    if(error !== ""){
+      setError("")
+    }
   }
 
   return(
@@ -35,11 +31,12 @@ export default function VanilaForms(){
           <p>名前</p>
           <input 
             type="text" name="name" required
-            onChange={chageNameState}
+            ref={nameRef}
+            onChange={validate}
             className="border border-black" 
           />
-          {name?.error && 
-            <div className="text-red-600 text-sm">{name.error}</div>
+          {error && 
+            <div className="text-red-600 text-sm">{error}</div>
           }
         </div>
         <div>
