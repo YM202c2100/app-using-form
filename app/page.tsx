@@ -1,5 +1,5 @@
 import ReactHookForm from "./components/ReactHookForm/ReactHookForm";
-import VanilaForms from "./components/VanilaForm/VanilaForm";
+import VanilaForms from "./components/VanilaForm/VanilaForms";
 
 export default function Home() {
   return (
