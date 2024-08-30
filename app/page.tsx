@@ -1,5 +1,7 @@
+import VanilaForms from "./components/VanilaForm/page";
+
 export default function Home() {
   return (
-    <div></div>
+    <VanilaForms/>
   );
 }
