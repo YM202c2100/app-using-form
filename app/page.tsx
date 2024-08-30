@@ -1,7 +1,12 @@
+import ReactHookForm from "./components/ReactHookForm/ReactHookForm";
 import VanilaForms from "./components/VanilaForm/VanilaForm";
 
 export default function Home() {
   return (
-    <VanilaForms/>
+    <div >
+      <VanilaForms/>
+      <div className="h-1 bg-gray-200 my-5"></div>
+      <ReactHookForm/>
+    </div>
   );
 }
