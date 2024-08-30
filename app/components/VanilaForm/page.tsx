@@ -1,12 +1,46 @@
 "use client"
 
+import { ChangeEvent, useState } from "react";
+
+type FormState = {
+  value:string,
+  error?:string
+}
+
 export default function VanilaForms(){
+  const [name, setName] = useState<FormState>()
+
+  function chageNameState(e:ChangeEvent<HTMLInputElement>){
+    const newName:FormState = {value: e.target.value}
+
+    if(newName.value.length > 10){
+      newName.error = "最大10文字まで入力可能です"
+      setName(newName)
+      return;
+    }
+
+    if(newName.value === ""){
+      newName.error = "入力必須の項目です"
+      setName(newName)
+      return;
+    }
+
+    setName(newName)
+  }
+
   return(
     <div>
-      <form onSubmit={e => {e.preventDefault();console.log(e.target)}}>
+      <form method="POST" onSubmit={e => {e.preventDefault();console.log(e.target)}}>
         <div>
           <p>名前</p>
-          <input type="text" name="name" className="border border-black" required/>
+          <input 
+            type="text" name="name" required
+            onChange={chageNameState}
+            className="border border-black" 
+          />
+          {name?.error && 
+            <div className="text-red-600 text-sm">{name.error}</div>
+          }
         </div>
         <div>
           <p>メールアドレス</p>
